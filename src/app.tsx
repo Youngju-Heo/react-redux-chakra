@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import moment from "moment";
 import {Button} from "@chakra-ui/button";
-import {MdBrightness7, MdDarkMode} from "react-icons/md";
+import {MdLightMode, MdDarkMode} from "react-icons/md";
 
 export const App = (): JSX.Element => {
   const {colorMode, toggleColorMode} = useColorMode();
@@ -30,7 +30,7 @@ export const App = (): JSX.Element => {
         <IconButton aria-label="테마적용"
 
                     size="sm"
-                    icon={colorMode === "dark" ? <MdBrightness7 size="sm"/> : <MdDarkMode size="sm"/>}
+                    icon={colorMode === "dark" ? <MdLightMode size="24px"/> : <MdDarkMode size="24px"/>}
                     onClick={() => toggleColorMode()}
         />
       </HStack>

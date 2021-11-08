@@ -1,14 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {Provider} from "react-redux";
-import {ChakraProvider} from "@chakra-ui/react";
-import "moment/locale/ko";
+import { Provider } from "react-redux";
+import { ChakraProvider } from "@chakra-ui/react";
 import moment from "moment";
+import "moment/locale/ko";
 
 import baseTheme from "./base-theme";
 import store from "./store";
-import {App} from "./app";
+import { App } from "./app";
 import * as serviceWorker from "./service-worker";
+
 import "@fontsource/noto-sans-kr/400.css";
 import "./index.scss";
 
@@ -18,7 +19,7 @@ ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
       <ChakraProvider theme={baseTheme}>
-      <App/>
+        <App/>
       </ChakraProvider>
     </React.StrictMode>
   </Provider>,

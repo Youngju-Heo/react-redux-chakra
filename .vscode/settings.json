@@ -1,0 +1,29 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "search.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/bin": true,
+    "**/logs": true,
+    "**/assets": true,
+    "**/index.d.ts": true,
+    "yarn.lock": true,
+    "package-lock.json": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "node_modules": true
+  },
+  "editor.rulers": [120],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "eslint.alwaysShowStatus": true
+}
