@@ -27,8 +27,6 @@ export const counterSlice = createSlice({
 
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 export const incrementAsync = (amount: number) => {
   setTimeout(() => {
     store.dispatch(incrementByAmount(amount));
