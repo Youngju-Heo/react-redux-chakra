@@ -1,5 +1,4 @@
-import React from "react";
-import {Counter} from "./component/counter";
+import React from 'react';
 import {
   Accordion,
   AccordionButton,
@@ -14,31 +13,31 @@ import {
   Stack,
   useColorMode,
   useToast,
-} from "@chakra-ui/react";
-import moment from "moment";
-import {Button} from "@chakra-ui/button";
-import {MdLightMode, MdDarkMode} from "react-icons/md";
+  Button,
+} from '@chakra-ui/react';
+import moment from 'moment';
+import { MdLightMode, MdDarkMode } from 'react-icons/md';
+import { Counter } from './component/counter';
 
 export const App = (): JSX.Element => {
-  const {colorMode, toggleColorMode} = useColorMode();
+  const { colorMode, toggleColorMode } = useColorMode();
 
   const toast = useToast();
 
   return (
     <Stack spacing={6}>
       <HStack>
-        <IconButton aria-label="테마적용"
-
-                    size="sm"
-                    icon={colorMode === "dark" ? <MdLightMode size="24px"/> : <MdDarkMode size="24px"/>}
-                    onClick={() => toggleColorMode()}
+        <IconButton
+          aria-label="테마적용"
+          size="sm"
+          icon={colorMode === 'dark' ? <MdLightMode size="24px" /> : <MdDarkMode size="24px" />}
+          onClick={() => toggleColorMode()}
         />
       </HStack>
-      <Heading as="h1">리엑트와 TypeScript
-        앱 {moment(new Date()).format("YYYY-MM-DD ddd HH:mm:ss")}</Heading>
-      <Counter/>
+      <Heading as="h1">리엑트와 TypeScript 앱 {moment(new Date()).format('YYYY-MM-DD ddd HH:mm:ss')}</Heading>
+      <Counter />
 
-      <br/>
+      <br />
       <Accordion>
         <AccordionItem>
           <h2>
@@ -46,12 +45,10 @@ export const App = (): JSX.Element => {
               <Box flex="1" textAlign="left">
                 Section 1 title
               </Box>
-              <AccordionIcon/>
+              <AccordionIcon />
             </AccordionButton>
           </h2>
-          <AccordionPanel pb={4}>
-            첫번째 항목의 내용
-          </AccordionPanel>
+          <AccordionPanel pb={4}>첫번째 항목의 내용</AccordionPanel>
         </AccordionItem>
 
         <AccordionItem>
@@ -60,23 +57,21 @@ export const App = (): JSX.Element => {
               <Box flex="1" textAlign="left">
                 Section 2 title
               </Box>
-              <AccordionIcon/>
+              <AccordionIcon />
             </AccordionButton>
           </h2>
-          <AccordionPanel pb={4}>
-            두번째 항목의 내용
-          </AccordionPanel>
+          <AccordionPanel pb={4}>두번째 항목의 내용</AccordionPanel>
         </AccordionItem>
       </Accordion>
-      <Image objectFit="contain" boxSize="200px" src="assets/images/image.jpg"/>
+      <Image objectFit="contain" boxSize="200px" src="assets/images/image.jpg" />
       <Button
         onClick={() =>
           toast({
-            title: "Account created.",
+            title: 'Account created.',
             description: "We've created your account for you.",
-            status: "success",
+            status: 'success',
             duration: 3000,
-            position: "bottom-left",
+            position: 'bottom-left',
             isClosable: true,
           })
         }
@@ -84,5 +79,5 @@ export const App = (): JSX.Element => {
         Show Toast
       </Button>
     </Stack>
-  )
-}
+  );
+};

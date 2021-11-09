@@ -1,9 +1,9 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendTheme } from '@chakra-ui/react';
 
 const baseTheme = extendTheme({
   fonts: {
-    heading: "Noto Sans KR",
-    body: "Noto Sans KR",
+    heading: 'Noto Sans KR',
+    body: 'Noto Sans KR',
   },
 });
 
