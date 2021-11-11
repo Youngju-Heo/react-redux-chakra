@@ -1,14 +1,14 @@
 import React from 'react';
-import { Button, HStack } from '@chakra-ui/react';
+import { Box, Button, HStack } from '@chakra-ui/react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { decrement, increment, incrementAsync, incrementByAmount } from '../store/counter/counter-slice';
 
 export const Counter = (): JSX.Element => {
-  const count = useAppSelector((state) => state.counter.value);
+  const count = useAppSelector((state) => state.counter);
   const dispatch = useAppDispatch();
 
   return (
-    <div>
+    <Box>
       <HStack spacing="1">
         <Button aria-label="Double Increment value" onClick={() => dispatch(incrementByAmount(2))}>
           Double Increment
@@ -21,7 +21,7 @@ export const Counter = (): JSX.Element => {
         </Button>
       </HStack>
       <br />
-      <span>{count}</span>
+      <span>{count.value}</span>
       <br />
       <HStack spacing={1}>
         <Button aria-label="Decrement value" onClick={() => dispatch(incrementByAmount(-2))}>
@@ -34,6 +34,6 @@ export const Counter = (): JSX.Element => {
           Async Decrement
         </Button>
       </HStack>
-    </div>
+    </Box>
   );
 };
