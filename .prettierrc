@@ -14,9 +14,9 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "options": {
-        "singleQuote": true,
+        "singleQuote": false,
         "printWidth": 120,
-        "semi": true
+        "semi": true,
       }
     }
   ]

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Accordion,
   AccordionButton,
@@ -14,10 +14,10 @@ import {
   useColorMode,
   useToast,
   Button,
-} from '@chakra-ui/react';
-import moment from 'moment';
-import { MdLightMode, MdDarkMode } from 'react-icons/md';
-import { Counter } from './component/counter';
+} from "@chakra-ui/react";
+import moment from "moment";
+import { MdLightMode, MdDarkMode } from "react-icons/md";
+import { Counter } from "./component/counter";
 
 export const App = (): JSX.Element => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -30,11 +30,11 @@ export const App = (): JSX.Element => {
         <IconButton
           aria-label="테마적용"
           size="sm"
-          icon={colorMode === 'dark' ? <MdLightMode size="24px" /> : <MdDarkMode size="24px" />}
+          icon={colorMode === "dark" ? <MdLightMode size="24px" /> : <MdDarkMode size="24px" />}
           onClick={() => toggleColorMode()}
         />
       </HStack>
-      <Heading as="h1">리엑트와 TypeScript 앱 {moment(new Date()).format('YYYY-MM-DD ddd HH:mm:ss')}</Heading>
+      <Heading as="h1">리엑트와 TypeScript 앱 {moment(new Date()).format("YYYY-MM-DD ddd HH:mm:ss")}</Heading>
       <Counter />
 
       <br />
@@ -67,11 +67,11 @@ export const App = (): JSX.Element => {
       <Button
         onClick={() =>
           toast({
-            title: 'Account created.',
+            title: "Account created.",
             description: "We've created your account for you.",
-            status: 'success',
+            status: "success",
             duration: 3000,
-            position: 'bottom-left',
+            position: "bottom-left",
             isClosable: true,
           })
         }
