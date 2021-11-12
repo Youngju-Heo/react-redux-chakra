@@ -31,12 +31,12 @@ export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 export const incrementAsync = (amount: number) => {
   setTimeout(() => {
     store.dispatch(incrementByAmount(amount));
-  }, 1000);
+  }, 3000);
 };
 
 export const decrementAsync = (amount: number) => {
   const execute = async () => {
-    await AwaitTimeout(1000);
+    await AwaitTimeout(3000);
     store.dispatch(incrementByAmount(-amount));
   };
 
