@@ -61,6 +61,13 @@ const config: Configuration = {
     port: 3000,
     open: true,
     hot: true,
+    proxy: {
+      "/dms-gis-proxy": { changeOrigin: true, target: "http://ca-172-16-36-180.vurix.kr" },
+      "/dms-gis": { changeOrigin: true, target: "http://ca-172-16-36-180.vurix.kr" },
+      "/emaphd": { changeOrigin: true, target: "http://ca-172-16-36-180.vurix.kr" },
+      "/media": { changeOrigin: true, target: "http://ca-172-16-36-180.vurix.kr" },
+      "/ds-system/api": { changeOrigin: true, target: "http://localhost:8080" },
+    }
   },
 };
 
