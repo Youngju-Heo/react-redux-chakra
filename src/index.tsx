@@ -5,7 +5,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 import moment from "moment";
 import "moment/locale/ko";
 
-import "@fontsource/noto-sans-kr/400.css";
+import "@fontsource/noto-sans-kr/500.css";
+import "react-perfect-scrollbar/dist/css/styles.css";
 import baseTheme from "./base-theme";
 import store from "./store";
 import { App } from "./app";

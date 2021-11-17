@@ -8,7 +8,7 @@ import CopyPlugin from 'copy-webpack-plugin';
 const config: Configuration = {
   mode: 'development',
   output: {
-    publicPath: '/',
+    publicPath: '/ds-system/app',
   },
   entry: './src/index.tsx',
   module: {
