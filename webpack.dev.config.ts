@@ -57,7 +57,9 @@ const config: Configuration = {
   devtool: 'inline-source-map',
   devServer: {
     static: path.join(__dirname, 'build'),
-    historyApiFallback: true,
+    historyApiFallback: {
+      index: "/ds-system/app/",
+    },
     port: 3000,
     open: true,
     hot: true,

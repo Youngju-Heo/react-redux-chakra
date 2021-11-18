@@ -33,6 +33,13 @@ const baseTheme = extendTheme({
       },
     }),
   },
+  components: {
+    Button: {
+      baseStyle: {
+        fontWeight: "normal",
+      }
+    }
+  },
   variants: {
     "vert-menu": {
       mt: 0,

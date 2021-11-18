@@ -1,11 +1,18 @@
 import React from "react";
-import { Box, BoxProps } from "@chakra-ui/react";
+import { Flex, FlexProps, Center, Spacer } from "@chakra-ui/react";
+import { useAppSelector } from "../../store/hooks";
+import { TimeWidget } from "../time-widget";
 
-export const MainStatus = (props: { children?: React.ReactNode } & BoxProps): JSX.Element => {
-  const { children, ...rest } = props;
+export const MainStatus = (props: FlexProps): JSX.Element => {
+  const message = useAppSelector((state) => state.status.message);
+
   return (
-    <Box h={10} bg="rgba(13,16,31,.3)" {...rest}>
-      {!children ? undefined : children}
-    </Box>
+    <Flex p={2} h={10} w="100%" bg="rgba(13,16,31,.3)" {...props}>
+      <Center>{message}</Center>
+      <Spacer />
+      <Center>
+        <TimeWidget />
+      </Center>
+    </Flex>
   );
 };

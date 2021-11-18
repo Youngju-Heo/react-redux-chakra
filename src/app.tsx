@@ -1,10 +1,22 @@
+/* eslint-disable no-console */
 import React from "react";
 import { LeftSide, MainFrame, MainStatus, RightSide, VertMenuItem } from "./component/main-frame";
 import { MainBody } from "./component/main-frame/main-body";
-import { Box } from "@chakra-ui/react";
-import { MdOutlineMap, MdOutlineNoteAlt, MdOutlineListAlt, MdLayers, MdMic } from "react-icons/md";
+import { MdOutlineMap, MdOutlineNoteAlt, MdOutlineListAlt, MdLayers } from "react-icons/md";
+import { useAppSelector } from "./store/hooks";
+import { Location } from "history";
+import { Processing } from "./component/processing";
+import { selectStatus, updateStatus } from "./store/status/status-slice";
 
 export const App = (): JSX.Element => {
+  const location = useAppSelector((state) => state.router.location) as Location;
+  const status = useAppSelector(selectStatus);
+  if (location.pathname !== status) {
+    console.log("location", location);
+    updateStatus(location.pathname);
+  }
+  console.log(location, status);
+
   return (
     <MainFrame>
       <LeftSide>
@@ -12,13 +24,12 @@ export const App = (): JSX.Element => {
         <VertMenuItem caption="정책설정" icon={MdOutlineNoteAlt} to="/add" />
         <VertMenuItem caption="결과조회" icon={MdOutlineListAlt} to="/search" />
         <VertMenuItem caption="레이어관리" icon={MdLayers} to="/layer" />
-        <VertMenuItem caption="통합 방송" icon={MdMic} to="/broadcast" />
       </LeftSide>
       <RightSide>
         <MainBody>
-          <Box>body</Box>
+          <Processing />
         </MainBody>
-        <MainStatus>{"status"}</MainStatus>
+        <MainStatus />
       </RightSide>
     </MainFrame>
   );

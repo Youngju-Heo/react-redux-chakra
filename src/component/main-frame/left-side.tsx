@@ -7,7 +7,7 @@ export const LeftSide = (props: { children?: React.ReactNode } & FlexProps): JSX
   const { children, ...rest } = props;
 
   return (
-    <Flex flexDirection="column" w="80px" boxShadow="lg" {...rest}>
+    <Flex flexDirection="column" w="80px" boxShadow="dark-lg" {...rest}>
       <Box flexGrow={1} h="100px">
         <VertMenu>{!children ? undefined : children}</VertMenu>
       </Box>
