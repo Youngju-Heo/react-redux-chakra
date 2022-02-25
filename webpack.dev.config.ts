@@ -5,7 +5,7 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 
-const config: Configuration = {
+const config: Configuration & Record<string, any> = {
   mode: 'development',
   output: {
     publicPath: '/ds-system/app',
