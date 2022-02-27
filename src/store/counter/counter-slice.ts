@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import store, { RootState } from "../index";
-import { AwaitTimeout } from "../../common/await-timeout";
+import { AwaitTimeout } from "../../common/utilities";
 
 export interface counterState {
   value: number;

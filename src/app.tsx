@@ -5,8 +5,8 @@ import { MainBody } from "./component/main-frame/main-body";
 import { MdOutlineMap, MdOutlineNoteAlt, MdOutlineListAlt, MdLayers } from "react-icons/md";
 import { useAppSelector } from "./store/hooks";
 import { Location } from "history";
-import { Processing } from "./component/processing";
 import { selectStatus, updateStatus } from "./store/status/status-slice";
+import { TestMap } from "./component/test-map";
 
 export const App = (): JSX.Element => {
   const location = useAppSelector((state) => state.router.location) as Location;
@@ -27,7 +27,7 @@ export const App = (): JSX.Element => {
       </LeftSide>
       <RightSide>
         <MainBody>
-          <Processing />
+          <TestMap />
         </MainBody>
         <MainStatus />
       </RightSide>

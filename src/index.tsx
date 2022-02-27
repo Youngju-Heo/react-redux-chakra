@@ -13,8 +13,14 @@ import { App } from "./app";
 import * as serviceWorker from "./service-worker";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "./store";
+import proj4 from "proj4";
+import { register } from "ol/proj/proj4";
+import { MapProjection } from "./component/geoutil/map-projection";
 
 moment.locale("ko");
+proj4.defs("EPSG:5179", MapProjection.baroHdProj);
+proj4.defs("EPSG:5181", MapProjection.kakaoProj);
+register(proj4);
 
 ReactDOM.render(
   <Provider store={store}>
