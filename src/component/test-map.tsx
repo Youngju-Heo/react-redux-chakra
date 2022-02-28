@@ -6,7 +6,7 @@ import LayerBaroMap from "./geoutil/layer-baro-map";
 import proj4 from "proj4";
 import { MapProjection } from "./geoutil/map-projection";
 import "ol/ol.css";
-import { FormatNumber } from "../common/utilities";
+import { FormatNumber, FormatNumberArray } from "../common/utilities";
 
 /**
  * TestMap: 샘플로 만든 지도자료임<br/>
@@ -49,7 +49,7 @@ export const TestMap = () => {
       <Button onClick={() => setUseOsm(!useOsm)} size="sm" w="200px">
         {useOsm ? "바로 e맵" : "오픈스트리트 맵"}으로 변경
       </Button>
-      &nbsp; center point: {FormatNumber(epsg4326Center[0], 6)}, {FormatNumber(epsg4326Center[1], 6)}, zoom:
+      &nbsp; center point: [{FormatNumberArray(epsg4326Center, 4)}], zoom:
       {FormatNumber(view.zoom, 4)}
     </Box>
   );
