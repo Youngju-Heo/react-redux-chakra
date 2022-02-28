@@ -4,8 +4,10 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
+// 이 내용이 없으면, devServer 이하 내용에 대하여 에러 발생함
+import 'webpack-dev-server';
 
-const config: Configuration & Record<string, any> = {
+const config: Configuration = {
   mode: 'development',
   output: {
     publicPath: '/ds-system/app',
