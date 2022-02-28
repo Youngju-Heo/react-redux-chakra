@@ -78,9 +78,9 @@ export default class LayerBaroMap extends RLayerRaster<LayerBaroEMapProps> {
     });
   }
 
-  refresh(prevProps?: LayerBaroEMapProps): void {
-    this.createSource().then(() => {
-      super.refresh(prevProps as LayerBaroEMapProps);
-    });
-  }
+  // refresh(prevProps?: LayerBaroEMapProps): void {
+  //   this.createSource().then(() => {
+  //     super.refresh(prevProps as LayerBaroEMapProps);
+  //   });
+  // }
 }
