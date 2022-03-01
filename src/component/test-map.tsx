@@ -3,10 +3,11 @@ import React from "react";
 import { RMap, ROSM, RControl } from "rlayers";
 import { Box, Button } from "@chakra-ui/react";
 import LayerBaroMap from "./geoutil/layer-baro-map";
-import proj4 from "proj4";
 import { MapProjection } from "./geoutil/map-projection";
-import "ol/ol.css";
 import { FormatNumber, FormatNumberArray } from "../common/utilities";
+import { fromLonLat, toLonLat } from "ol/proj";
+
+import "ol/ol.css";
 
 /**
  * TestMap: 샘플로 만든 지도자료임<br/>
@@ -17,11 +18,11 @@ import { FormatNumber, FormatNumberArray } from "../common/utilities";
 export const TestMap = () => {
   const [useOsm, setUseOsm] = React.useState(false);
   const [view, setView] = React.useState({
-    center: proj4("EPSG:4326", "EPSG:5179").forward([126.89154003559742, 37.4858879791826]), // [946207.4373761236, 1943137.661562117],
+    center: fromLonLat([126.89154003559742, 37.4858879791826], "EPSG:5179"), // [946207.4373761236, 1943137.661562117],
     zoom: 15,
   });
 
-  const epsg4326Center = proj4("EPSG:5179", "EPSG:4326", view.center);
+  const epsg4326Center = toLonLat(view.center, "EPSG:5179");
 
   return (
     <Box width={"100%"} height={"100%"}>
