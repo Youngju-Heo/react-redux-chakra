@@ -53,7 +53,11 @@ const config: Configuration = {
       extensions: ['js', 'jsx', 'ts', 'tsx'],
     }),
     new CopyPlugin({
-      patterns: [{ from: 'src/assets', to: 'assets' }],
+      patterns: [
+        { from: 'src/assets', to: 'assets' },
+        {from: "public/authenticate.json", to: "authenticate.json", noErrorOnMissing: true},
+        {from: "public/favicon.ico", to: "favicon.ico", noErrorOnMissing: true},
+      ],
     }),
   ],
   devtool: 'inline-source-map',

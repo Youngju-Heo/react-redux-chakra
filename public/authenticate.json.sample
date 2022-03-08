@@ -1,0 +1,7 @@
+{
+  "realm": "vurix-dms",
+  "url": "http://ca-172-16-36-180.vurix.kr/auth",
+  "url-office": "http://ca-172-16-36-180.vurix.kr/auth",
+  "url-bukgu": "http://10.5.1.60/auth",
+  "clientId": "vurix-dms-platform"
+}

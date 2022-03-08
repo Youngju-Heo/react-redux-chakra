@@ -3,20 +3,13 @@ import React from "react";
 import { LeftSide, MainFrame, MainStatus, RightSide, VertMenuItem } from "./component/main-frame";
 import { MainBody } from "./component/main-frame/main-body";
 import { MdOutlineMap, MdOutlineNoteAlt, MdOutlineListAlt, MdLayers } from "react-icons/md";
-import { useAppSelector } from "./store/hooks";
-import { Location } from "history";
-import { selectStatus, updateStatus } from "./store/status/status-slice";
 import { TestMap } from "./component/test-map";
+import { useKeycloak } from "@react-keycloak/web";
 
 export const App = (): JSX.Element => {
-  const location = useAppSelector((state) => state.router.location) as Location;
-  const status = useAppSelector(selectStatus);
-  if (location.pathname !== status) {
-    console.log("location", location);
-    updateStatus(location.pathname);
-  }
-  console.log(location, status);
+  const { keycloak } = useKeycloak();
 
+  console.log(keycloak);
   return (
     <MainFrame>
       <LeftSide>

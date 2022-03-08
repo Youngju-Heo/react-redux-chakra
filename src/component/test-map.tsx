@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from "react";
 import { RMap, ROSM, RControl } from "rlayers";
 import { Box, Button } from "@chakra-ui/react";
@@ -8,6 +7,10 @@ import { FormatNumber, FormatNumberArray } from "../common/utilities";
 import { fromLonLat, toLonLat } from "ol/proj";
 
 import "ol/ol.css";
+
+import "./test-map.scss";
+import { Route, Switch } from "react-router";
+import { history } from "../store";
 
 /**
  * TestMap: 샘플로 만든 지도자료임<br/>
@@ -25,33 +28,48 @@ export const TestMap = () => {
   const epsg4326Center = toLonLat(view.center, "EPSG:5179");
 
   return (
-    <Box width={"100%"} height={"100%"}>
-      <RMap
-        width={"100%"}
-        height={"90%"}
-        initial={{ center: view.center, zoom: 15 }}
-        noDefaultControls
-        minZoom={10}
-        maxZoom={20}
-        projection="EPSG:5179"
-        extent={MapProjection.baroHdExtent}
-        view={[view, setView]}
-      >
-        <RControl.RZoomSlider />
-        <RControl.RZoom />
-        <RControl.RRotate />
-        <RControl.RScaleLine />
-        {useOsm ? (
-          <ROSM />
-        ) : (
-          <LayerBaroMap sourcePath={"https://tms-gis-tile.azurewebsites.net/api/v1/tile/{0}/{1}/{2}"} />
-        )}
-      </RMap>
-      <Button onClick={() => setUseOsm(!useOsm)} size="sm" w="200px">
-        {useOsm ? "바로 e맵" : "오픈스트리트 맵"}으로 변경
-      </Button>
-      &nbsp; center point: [{FormatNumberArray(epsg4326Center, 4)}], zoom:
-      {FormatNumber(view.zoom, 4)}
+    <Box position="relative" width="100%" height="100%">
+      <Box position="absolute" left={0} right={0} top={0} bottom="50px">
+        <RMap
+          width={"100%"}
+          height={"100%"}
+          initial={{ center: view.center, zoom: 15 }}
+          noDefaultControls
+          minZoom={10}
+          maxZoom={20}
+          projection="EPSG:5179"
+          extent={MapProjection.baroHdExtent}
+          view={[view, setView]}
+        >
+          {/*<RControl.RZoomSlider />*/}
+          {/*<RControl.RZoom />*/}
+          <RControl.RScaleLine />
+          {useOsm ? (
+            <ROSM />
+          ) : (
+            <LayerBaroMap sourcePath={"https://tms-gis-tile.azurewebsites.net/api/v1/tile/{0}/{1}/{2}"} />
+          )}
+        </RMap>
+      </Box>
+      <Box position="absolute" left={0} right={0} bottom={0} height="50px">
+        <Button onClick={() => setUseOsm(!useOsm)} size="sm" w="200px">
+          {useOsm ? "바로 e맵" : "오픈스트리트 맵"}으로 변경
+        </Button>
+        &nbsp; center point: [{FormatNumberArray(epsg4326Center, 4)}], zoom:
+        {FormatNumber(view.zoom, 4)}
+      </Box>
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <Box position="absolute" top="3px" right="20px">
+              Home
+            </Box>
+          )}
+        />
+        <Route render={() => <div>{history.location.pathname}</div>} />
+      </Switch>
     </Box>
   );
 };

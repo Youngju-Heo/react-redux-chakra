@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "../../store/hooks";
 import { IconType } from "react-icons";
 import { Location } from "history";
-import { updateStatus } from "../../store/status/status-slice";
+// import { updateStatus } from "../../store/status/status-slice";
 
 interface VertMenuItemProps {
   icon?: IconType;
@@ -24,7 +24,7 @@ export const VertMenuItem = (props: VertMenuItemProps): JSX.Element => {
       rounded={5}
       bg={menuLocation.pathname === props.to ? "#3080d0" : undefined}
     >
-      <Link to={props.to || "/"} onClick={() => updateStatus(menuLocation.pathname || "")}>
+      <Link to={props.to || "/"}>
         <Box cursor="pointer">
           <Center>
             <Icon as={props.icon ? props.icon : MdErrorOutline} boxSize={6} />

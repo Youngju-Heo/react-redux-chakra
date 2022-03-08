@@ -8,6 +8,7 @@
 
 # production
 /build
+/public/authenticate.json
 
 # misc
 .DS_Store
