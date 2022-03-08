@@ -68,7 +68,13 @@ export const TestMap = () => {
             </Box>
           )}
         />
-        <Route render={() => <div>{history.location.pathname}</div>} />
+        <Route
+          render={() => (
+            <Box position="absolute" left={0} top={0}>
+              {history.location.pathname}
+            </Box>
+          )}
+        />
       </Switch>
     </Box>
   );
