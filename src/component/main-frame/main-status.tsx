@@ -12,12 +12,14 @@ interface MainStatusProps {
 }
 
 const MainStatus = (props: MainStatusProps): JSX.Element => {
-  const { message, view } = props?.status ?? { message: "", view: { center: [0, 0], zoom: 0 } };
+  const message = props?.status?.message || "";
+  const view = props?.status?.view || { center: [0, 0], zoom: 0 };
+
   const showMessage = `[${FormatNumberArray(view?.center || [0, 0], 4)}, ${FormatNumber(view?.zoom, 4)}]`;
 
   return (
     <Flex p={2} h={10} w="100%" bg="rgba(13,16,31,.3)">
-      <Center>{`${showMessage} ${message || ""}`}</Center>
+      <Center>{`${showMessage} ${message}`}</Center>
       <Spacer />
       <Center>
         <TimeWidget />
