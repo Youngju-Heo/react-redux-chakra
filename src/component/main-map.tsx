@@ -1,10 +1,9 @@
 /* eslint-disable no-console */
 import React from "react";
-import { RMap, RControl, RInteraction, RLayerVector, RStyle } from "rlayers";
+import { RMap, RControl, RInteraction, RLayerVector, RStyle, ROSM } from "rlayers";
 import { RView } from "rlayers/RMap";
 import { MapProjection } from "./geoutil/map-projection";
 import { fromLonLat, toLonLat } from "ol/proj";
-import LayerBaroMap from "./geoutil/layer-baro-map";
 import { MapBrowserEvent, Map } from "ol";
 import "./map-main.scss";
 // import VectorSource from "ol/source/Vector";
@@ -45,7 +44,7 @@ export const MainMap = (props: MainMapProps): JSX.Element => {
       }}
     >
       <RControl.RScaleLine />
-      <LayerBaroMap sourcePath={"https://tms-gis-tile.azurewebsites.net/api/v1/tile/{0}/{1}/{2}"} />
+      <ROSM />
 
       <RLayerVector
         onChange={React.useCallback((e) => {
