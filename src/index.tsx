@@ -55,6 +55,9 @@ const AuthChecker = (): JSX.Element => {
     console.log(event, error);
   };
 
+  // ReactKeycloakProvider: 로그인 인증 방법에 대하여 확인이 필요할 경우 아래 링크 참조 바라며, 로그인을 위해서는
+  // initOptions: { onLoad: 'login-required' } 을 추가해야 한다.
+  // 참조: https://www.keycloak.org/docs/latest/securing_apps/index.html#init-options
   return (
     <React.StrictMode>
       {state.keycloak ? (

@@ -6,8 +6,6 @@ import { MapProjection } from "./geoutil/map-projection";
 import { fromLonLat, toLonLat } from "ol/proj";
 import { MapBrowserEvent, Map } from "ol";
 import "./map-main.scss";
-// import VectorSource from "ol/source/Vector";
-// import { Geometry } from "ol/geom";
 import {
   altShiftKeysOnly,
   platformModifierKeyOnly,
@@ -16,14 +14,24 @@ import {
   never,
   doubleClick,
 } from "ol/events/condition";
+import { RootState } from "../store";
+import { connect } from "react-redux";
+import { setViewLocation, StatusState } from "../store/status/status-slice";
 
 export interface MainMapProps {
   view: RView;
+  status?: StatusState;
+  setViewLocation: (location: RView) => void;
 }
 
-export const MainMap = (props: MainMapProps): JSX.Element => {
+const MainMap = (props: MainMapProps): JSX.Element => {
   const [view, setView] = React.useState<RView>({ center: fromLonLat(props.view.center, "EPSG:5179"), zoom: 15 });
-  // const [selected, setSelected] = React.useState(false);
+
+  React.useEffect(() => {
+    console.log("MainMap: useEffect: view change");
+    props.setViewLocation({ center: toLonLat(view.center, "EPSG:5179"), zoom: view.zoom });
+    // eslint-disable-next-line
+  }, [view]);
 
   return (
     <RMap
@@ -73,3 +81,9 @@ export const MainMap = (props: MainMapProps): JSX.Element => {
     </RMap>
   );
 };
+
+const mapStateToProps = (state: RootState) => ({
+  status: state.status,
+});
+
+export default connect(mapStateToProps, { setViewLocation })(MainMap);

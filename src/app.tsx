@@ -4,7 +4,7 @@ import { LeftSide, MainFrame, MainStatus, RightSide, VertMenuItem } from "./comp
 import { MainBody } from "./component/main-frame/main-body";
 import { MdOutlineMap, MdOutlineNoteAlt, MdOutlineListAlt, MdLayers } from "react-icons/md";
 import { useKeycloak } from "@react-keycloak/web";
-import { MainMap } from "./component/main-map";
+import MainMap from "./component/main-map";
 import { Box } from "@chakra-ui/react";
 
 import "ol/ol.css";

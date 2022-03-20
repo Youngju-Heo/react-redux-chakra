@@ -3,13 +3,13 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 import { applyMiddleware, combineReducers, compose, createStore, Store } from "redux";
 import counterReducer, { counterState } from "./counter/counter-slice";
-import statusReducer, { statusState } from "./status/status-slice";
+import statusReducer, { StatusState } from "./status/status-slice";
 import { connectRouter, routerMiddleware } from "connected-react-router";
 import { createBrowserHistory } from "history";
 
 export interface ApplicationState {
   counter: counterState | undefined;
-  status: statusState | undefined;
+  status: StatusState | undefined;
 }
 
 export const reducers = {
