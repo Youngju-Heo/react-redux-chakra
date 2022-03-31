@@ -10,7 +10,7 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 import "@fontsource/noto-sans-kr/400.css";
 import baseTheme from "./base-theme";
 import store from "./store";
-import { App } from "./app";
+import App from "./app";
 import * as serviceWorker from "./service-worker";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "./store";

@@ -12,7 +12,7 @@ const config: Configuration = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: '[name].[contenthash].js',
-    publicPath: '/ds-system/app',
+    publicPath: '/ds-system/app/',
   },
   module: {
     rules: [

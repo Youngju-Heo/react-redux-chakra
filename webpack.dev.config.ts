@@ -10,7 +10,7 @@ import 'webpack-dev-server';
 const config: Configuration = {
   mode: 'development',
   output: {
-    publicPath: '/ds-system/app',
+    publicPath: '/ds-system/app/',
   },
   entry: './src/index.tsx',
   module: {

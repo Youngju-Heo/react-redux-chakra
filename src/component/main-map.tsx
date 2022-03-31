@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React from "react";
-import { RMap, RControl, RInteraction, RLayerVector, RStyle, ROSM } from "rlayers";
+import { RMap, RControl, RInteraction, RLayerVector, RStyle } from "rlayers";
 import { RView } from "rlayers/RMap";
 import { MapProjection } from "./geoutil/map-projection";
 import { fromLonLat, toLonLat } from "ol/proj";
@@ -17,6 +17,7 @@ import {
 import { RootState } from "../store";
 import { connect } from "react-redux";
 import { setViewLocation, StatusState } from "../store/status/status-slice";
+import LayerBaroMap from "./geoutil/layer-baro-map";
 
 export interface MainMapProps {
   view: RView;
@@ -52,7 +53,8 @@ const MainMap = (props: MainMapProps): JSX.Element => {
       }}
     >
       <RControl.RScaleLine />
-      <ROSM />
+      {/*<ROSM />*/}
+      <LayerBaroMap />
 
       <RLayerVector
         onChange={React.useCallback((e) => {

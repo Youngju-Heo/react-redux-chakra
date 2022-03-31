@@ -3,15 +3,27 @@ import React from "react";
 import { LeftSide, MainFrame, MainStatus, RightSide, VertMenuItem } from "./component/main-frame";
 import { MainBody } from "./component/main-frame/main-body";
 import { MdOutlineMap, MdOutlineNoteAlt, MdOutlineListAlt, MdLayers } from "react-icons/md";
-import { useKeycloak } from "@react-keycloak/web";
-import MainMap from "./component/main-map";
 import { Box } from "@chakra-ui/react";
 
 import "ol/ol.css";
-export const App = (): JSX.Element => {
-  const { keycloak } = useKeycloak();
+import GisMap from "./component/gis-comp/gis-map";
+import { RootState } from "./store";
+import { connect } from "react-redux";
+import { gisSetLocation, GisViewPosition } from "./store/gisinfo/gis-info-slice";
 
-  console.log(keycloak);
+interface AppProps {
+  location?: Location;
+  gisSetLocation: (position: GisViewPosition) => void;
+}
+
+const App = (props: AppProps): JSX.Element => {
+  React.useEffect(() => {
+    props.gisSetLocation({
+      center: [126.8915302, 37.4858711],
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.location]);
+
   return (
     <MainFrame>
       <LeftSide>
@@ -23,7 +35,8 @@ export const App = (): JSX.Element => {
       <RightSide>
         <MainBody>
           <Box position="relative" h="100%" w="100%">
-            <MainMap view={{ center: [126.89154003559742, 37.4858879791826], zoom: 15 }} />
+            {/*<MainMap view={{ center: [126.89154003559742, 37.4858879791826], zoom: 15 }} />*/}
+            <GisMap />
           </Box>
         </MainBody>
         <MainStatus />
@@ -31,3 +44,9 @@ export const App = (): JSX.Element => {
     </MainFrame>
   );
 };
+
+const mapStateToProps = (state: RootState) => ({
+  location: state.router.location,
+});
+
+export default connect(mapStateToProps, { gisSetLocation })(App);
