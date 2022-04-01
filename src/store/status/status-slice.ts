@@ -1,27 +1,27 @@
 /* eslint-disable no-console */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import store, { RootState } from "../index";
-import { RView } from "rlayers/RMap";
+import { GisViewExtent } from "../../common/domain/gis-common";
 
 export interface StatusState {
   message: string;
-  view: RView;
+  view: GisViewExtent;
 }
 
 const initialState: StatusState = {
   message: "",
-  view: { center: [0, 0], zoom: 0 },
+  view: { center: [0, 0], centerSrc: [0, 0], rect: [0, 0, 0, 0], zoom: 0 },
 };
 
 export const statusSlice = createSlice({
   name: "status",
   initialState: initialState,
   reducers: {
-    setMessageUpdate: (state, action: PayloadAction<string>) => {
+    statusMessageUpdate: (state, action: PayloadAction<string>) => {
       console.log("update-message:", action.payload);
       state.message = action.payload;
     },
-    setViewLocation: (state, action: PayloadAction<RView>) => {
+    statusMapLocation: (state, action: PayloadAction<GisViewExtent>) => {
       console.log("set-view-location:", action.payload);
       state.view = action.payload;
     },
@@ -29,10 +29,10 @@ export const statusSlice = createSlice({
 });
 
 export const updateStatus = (msg: string): void => {
-  store.dispatch(statusSlice.actions.setMessageUpdate(msg));
+  store.dispatch(statusSlice.actions.statusMessageUpdate(msg));
 };
 
-export const { setMessageUpdate, setViewLocation } = statusSlice.actions;
+export const { statusMessageUpdate, statusMapLocation } = statusSlice.actions;
 export const selectStatus = (state: RootState) => state.status.message as string;
 
 export default statusSlice.reducer;

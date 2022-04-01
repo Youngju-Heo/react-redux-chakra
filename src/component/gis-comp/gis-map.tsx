@@ -1,80 +1,113 @@
 /* eslint-disable no-console */
 import React from "react";
-import { Map as OlMap, View } from "ol";
-import TileLayer from "ol/layer/Tile";
 import * as proj from "ol/proj";
-import * as OlControl from "ol/control";
 import { Box } from "@chakra-ui/react";
-import { BaroTileSource } from "./baro-tile-map";
-
-import "ol/ol.css";
 import BaseLayer from "ol/layer/Base";
 import { connect } from "react-redux";
 import { RootState } from "../../store";
-import { GisViewPosition } from "../../store/gisinfo/gis-info-slice";
+import { GisInfoState, gisSetLocation } from "../../store/gisinfo/gis-info-slice";
+import { statusMapLocation } from "../../store/status/status-slice";
+import * as Utility from "../../common/utilities";
+
+import "ol/ol.css";
+import { makeBackgroundLayer } from "./background-builder";
+import {
+  DefaultEPSG,
+  DefaultLocation,
+  GisViewExtent,
+  GisViewPosition,
+  ReadFeatureFromGeoJSON,
+} from "../../common/domain/gis-common";
+import { useKeycloak } from "@react-keycloak/web";
+import { DistrictLayer } from "./district-layer";
+import VectorSource from "ol/source/Vector";
+import { Geometry } from "ol/geom";
+import { MapControl } from "./map-control";
 
 interface GisMapProps {
   target?: string;
   minZoom?: number;
   maxZoom?: number;
   center?: number[];
-  gisPosition?: GisViewPosition;
+  gisInfo?: GisInfoState;
+  statusMapLocation: (pos: GisViewExtent) => void;
+  gisSetLocation: (pos: GisViewPosition) => void;
 }
 
-const defaultLocation = [126.8915302, 37.4858711];
-const defaultEPSG = "EPSG:5179";
-
 const GisMap = (props: GisMapProps): JSX.Element => {
-  const [mapObject, setMapObject] = React.useState<OlMap | null>(null);
+  const [mapObject, setMapObject] = React.useState<MapControl | null>(null);
 
   const [layers, setLayers] = React.useState<BaseLayer[]>([]);
+  const { keycloak } = useKeycloak();
 
   const targetName = props.target || "map";
-  const center = props.center || defaultLocation;
 
   React.useEffect((): void => {
-    const map = new OlMap({
-      target: targetName,
-      layers: [
-        // new BaroTileMap(),
-      ],
-      view: new View({
-        projection: defaultEPSG,
-        center: proj.fromLonLat(center, defaultEPSG),
-        zoom: 19,
-        maxZoom: props.maxZoom || 20,
-        minZoom: props.minZoom || 10,
-      }),
-      controls: OlControl.defaults({
-        zoom: false,
-      }),
-    });
+    const map = new MapControl(targetName, DefaultEPSG, DefaultLocation);
+    map.bindEvent();
+    map.onMoveEnd = (srcMap): void => {
+      if (srcMap) {
+        const src = srcMap.getView().getCenter() || [0, 0];
+        const loc = proj.toLonLat(src, DefaultEPSG);
+        props.statusMapLocation({
+          center: loc,
+          centerSrc: src,
+          rect: srcMap.getView().calculateExtent(),
+          zoom: srcMap.getView().getZoom() || 0,
+        });
+      }
+    };
+
+    // map.onClick = (srcMap, coord): void => {
+    //   if (srcMap) {
+    //     props.gisSetLocation({
+    //       center: proj.toLonLat(coord, DefaultEPSG),
+    //     });
+    //   }
+    // };
+
     setMapObject(map);
-    setLayers([
-      new TileLayer({
-        preload: Infinity,
-        source: new BaroTileSource(),
-      }),
-    ]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   React.useEffect(() => {
+    const updateLayer = async (): Promise<void> => {
+      const token = keycloak?.token || "";
+      const response = await Utility.ExecuteRequest("/ds-system/api/v1/emd-layers", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          areas: "31200",
+        },
+      });
+      if (response && response.status == 200) {
+        const features = ReadFeatureFromGeoJSON(DefaultEPSG, "EPSG:4326", response.data as Record<string, unknown>);
+        const layers = new DistrictLayer();
+        layers.setSource(new VectorSource<Geometry>({ features }));
+        setLayers([makeBackgroundLayer(props.gisInfo?.background || "kakao"), layers]);
+      }
+    };
+
+    updateLayer().catch((err) => {
+      console.log(err);
+    });
+    // todo
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.gisInfo?.background]);
+
+  React.useEffect(() => {
     if (mapObject) {
-      mapObject.setLayers(layers);
+      mapObject.layers = layers;
     }
   }, [layers, mapObject]);
 
   React.useEffect(() => {
-    console.log(props.gisPosition);
     if (mapObject) {
-      mapObject.getView().animate({
-        center: proj.fromLonLat(props.gisPosition?.center || defaultLocation, defaultEPSG),
-        zoom: props.gisPosition?.zoom || 0,
-        duration: 100,
-      });
+      mapObject.moveToLonLat(props.gisInfo?.gisPosition?.center || DefaultLocation);
     }
-  }, [mapObject, props.gisPosition]);
+  }, [mapObject, props.gisInfo?.gisPosition]);
 
   if (!mapObject) {
     // eslint-disable-next-line no-console
@@ -87,8 +120,9 @@ const GisMap = (props: GisMapProps): JSX.Element => {
     </Box>
   );
 };
+
 const mapStateToProps = (state: RootState) => ({
-  gisPosition: state.gisInfo.gisPosition,
+  gisInfo: state.gisInfo,
 });
 
-export default connect(mapStateToProps)(GisMap);
+export default connect(mapStateToProps, { statusMapLocation, gisSetLocation })(GisMap);

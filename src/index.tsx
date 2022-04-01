@@ -7,7 +7,7 @@ import moment from "moment";
 import "moment/locale/ko";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import "@fontsource/noto-sans-kr/400.css";
+import "@fontsource/noto-sans-kr/300.css";
 import baseTheme from "./base-theme";
 import store from "./store";
 import App from "./app";
@@ -56,12 +56,16 @@ const AuthChecker = (): JSX.Element => {
   };
 
   // ReactKeycloakProvider: 로그인 인증 방법에 대하여 확인이 필요할 경우 아래 링크 참조 바라며, 로그인을 위해서는
-  // initOptions: { onLoad: 'login-required' } 을 추가해야 한다.
+  // initOptions={{ onLoad: 'login-required' }} 을 추가해야 한다.
   // 참조: https://www.keycloak.org/docs/latest/securing_apps/index.html#init-options
   return (
     <React.StrictMode>
       {state.keycloak ? (
-        <ReactKeycloakProvider authClient={state.keycloak} onEvent={onKeycloakEvent}>
+        <ReactKeycloakProvider
+          authClient={state.keycloak}
+          onEvent={onKeycloakEvent}
+          initOptions={{ onLoad: "login-required" }}
+        >
           <App />
         </ReactKeycloakProvider>
       ) : (

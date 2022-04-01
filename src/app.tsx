@@ -4,23 +4,34 @@ import { LeftSide, MainFrame, MainStatus, RightSide, VertMenuItem } from "./comp
 import { MainBody } from "./component/main-frame/main-body";
 import { MdOutlineMap, MdOutlineNoteAlt, MdOutlineListAlt, MdLayers } from "react-icons/md";
 import { Box } from "@chakra-ui/react";
-
-import "ol/ol.css";
 import GisMap from "./component/gis-comp/gis-map";
 import { RootState } from "./store";
 import { connect } from "react-redux";
-import { gisSetLocation, GisViewPosition } from "./store/gisinfo/gis-info-slice";
+import { gisSetBackground, gisSetLocation } from "./store/gisinfo/gis-info-slice";
+import { BackgroundMapType, GisViewPosition } from "./common/domain/gis-common";
+
+import "ol/ol.css";
 
 interface AppProps {
   location?: Location;
   gisSetLocation: (position: GisViewPosition) => void;
+  gisSetBackground: (background: BackgroundMapType) => void;
 }
 
 const App = (props: AppProps): JSX.Element => {
   React.useEffect(() => {
-    props.gisSetLocation({
-      center: [126.8915302, 37.4858711],
-    });
+    if (props.location?.pathname === "/") {
+      props.gisSetBackground("baro");
+      props.gisSetLocation({
+        center: [126.8915302, 37.4858711],
+      });
+    } else if (props.location?.pathname === "/search") {
+      props.gisSetBackground("skyview");
+    } else if (props.location?.pathname === "/add") {
+      props.gisSetBackground("hybrid");
+    } else {
+      props.gisSetBackground("kakao");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.location]);
 
@@ -49,4 +60,4 @@ const mapStateToProps = (state: RootState) => ({
   location: state.router.location,
 });
 
-export default connect(mapStateToProps, { gisSetLocation })(App);
+export default connect(mapStateToProps, { gisSetLocation, gisSetBackground })(App);

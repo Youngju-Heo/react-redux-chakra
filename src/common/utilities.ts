@@ -1,5 +1,7 @@
 // utility function define
 
+import axios, { AxiosRequestConfig } from "axios";
+
 export const DelayedExecute = (callback: () => void, ms: number): void => {
   const callbackTimeoutID = setTimeout(() => {
     callback();
@@ -54,4 +56,18 @@ export const FormatBytesNumber = (value: number): string => {
   else if (value >= 1048576) return `${sign}${(value / 1048576).toLocaleString()}M`;
   else if (value >= 1024) return `${sign}${(value / 1024).toLocaleString()}K`;
   return `${sign}${value.toLocaleString()}`;
+};
+
+export const ExecuteRequest = async (path: string, config?: AxiosRequestConfig): Promise<Record<string, unknown>> => {
+  try {
+    const result = await axios(path, config);
+    return result as object as Record<string, unknown>;
+  } catch (err) {
+    const anyResult = err as Record<string, unknown>;
+    if (anyResult && anyResult.response) {
+      return anyResult.response as object as Record<string, unknown>;
+    }
+  }
+
+  return {};
 };

@@ -8,7 +8,7 @@ import * as proj from "ol/proj";
 import { RContextType } from "rlayers";
 import { ImageTile, Tile } from "ol";
 import { MapProjection } from "./map-projection";
-import { FormatString } from "../../common/utilities";
+import * as Utility from "../../common/utilities";
 
 export interface LayerBaroEMapProps extends RLayerRasterProps {
   sourcePath?: string;
@@ -60,7 +60,7 @@ export default class LayerBaroMap extends RLayerRaster<LayerBaroEMapProps> {
           const srcPath = this.props.sourcePath || "/emaphd/{0}/{1}/{2}.png";
 
           const zLabel = srcPath.startsWith("https") ? z.toString(10) : z < 9 ? "L0" + z : "L" + z;
-          (imageTile.getImage() as HTMLImageElement).src = FormatString(
+          (imageTile.getImage() as HTMLImageElement).src = Utility.FormatString(
             srcPath,
             zLabel,
             y.toString(10),

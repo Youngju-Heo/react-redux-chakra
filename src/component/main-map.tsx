@@ -16,13 +16,14 @@ import {
 } from "ol/events/condition";
 import { RootState } from "../store";
 import { connect } from "react-redux";
-import { setViewLocation, StatusState } from "../store/status/status-slice";
+import { statusMapLocation, StatusState } from "../store/status/status-slice";
 import LayerBaroMap from "./geoutil/layer-baro-map";
+import { GisViewExtent } from "../common/domain/gis-common";
 
 export interface MainMapProps {
   view: RView;
   status?: StatusState;
-  setViewLocation: (location: RView) => void;
+  statusMapLocation: (location: GisViewExtent) => void;
 }
 
 const MainMap = (props: MainMapProps): JSX.Element => {
@@ -30,7 +31,12 @@ const MainMap = (props: MainMapProps): JSX.Element => {
 
   React.useEffect(() => {
     console.log("MainMap: useEffect: view change");
-    props.setViewLocation({ center: toLonLat(view.center, "EPSG:5179"), zoom: view.zoom });
+    props.statusMapLocation({
+      center: toLonLat(view.center, "EPSG:5179"),
+      centerSrc: view.center,
+      rect: [],
+      zoom: view.zoom,
+    });
     // eslint-disable-next-line
   }, [view]);
 
@@ -88,4 +94,4 @@ const mapStateToProps = (state: RootState) => ({
   status: state.status,
 });
 
-export default connect(mapStateToProps, { setViewLocation })(MainMap);
+export default connect(mapStateToProps, { statusMapLocation })(MainMap);

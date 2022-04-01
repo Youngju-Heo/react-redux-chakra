@@ -74,7 +74,7 @@ const config: Configuration = {
       "/dms-gis": { changeOrigin: true, target: "http://ca-172-16-36-180.vurix.kr" },
       "/emaphd": { changeOrigin: true, target: "http://ca-172-16-36-180.vurix.kr" },
       "/media": { changeOrigin: true, target: "http://ca-172-16-36-180.vurix.kr" },
-      "/ds-system/api": { changeOrigin: true, target: "http://localhost:8080" },
+      "/ds-system/api": { changeOrigin: true, target: "http://ca-172-16-36-180.vurix.kr" },
     }
   },
 };

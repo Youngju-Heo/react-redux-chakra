@@ -4,7 +4,7 @@ import { MapProjection } from "../geoutil/map-projection";
 import * as proj from "ol/proj";
 import { WMTS } from "ol/source";
 import TileLayer from "ol/layer/Tile";
-import { FormatString } from "../../common/utilities";
+import * as Utility from "../../common/utilities";
 
 export class BaroTileSource extends WMTS {
   constructor(private readonly sourcePath?: string) {
@@ -35,7 +35,12 @@ export class BaroTileSource extends WMTS {
         const srcPath = sourcePath || "https://tms-gis-tile.azurewebsites.net/api/v1/tile/{0}/{1}/{2}"; //"/emaphd/{0}/{1}/{2}.png";
 
         const zLabel = srcPath.startsWith("https") ? z.toString(10) : z < 9 ? "L0" + z : "L" + z;
-        (imageTile.getImage() as HTMLImageElement).src = FormatString(srcPath, zLabel, y.toString(10), x.toString(10));
+        (imageTile.getImage() as HTMLImageElement).src = Utility.FormatString(
+          srcPath,
+          zLabel,
+          y.toString(10),
+          x.toString(10)
+        );
       },
       crossOrigin: "anonymous",
       wrapX: false,
@@ -43,6 +48,14 @@ export class BaroTileSource extends WMTS {
   }
 }
 
+/**
+ * 바로 e맵 HD 타일소스
+ * @param sourcePath 원본 소스 호출경로를 지정하며, 지정하지 않으면 기본 호출경로를 사용한다.
+ * @description:
+ *  원본지도 경로를 지정하여, 해당 지도를 기반으로 타일맵을 구성할 수 있음.
+ *   - 클라우드 지도 사용시: https://tms-gis-tile.azurewebsites.net/api/v1/tile/{0}/{1}/{2}
+ *   - 로컬지도 사용시: /emaphd/{0}/{1}/{2}.png
+ */
 export class BaroTileMap extends TileLayer<WMTS> {
   constructor(private readonly sourcePath?: string) {
     super({

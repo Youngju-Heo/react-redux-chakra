@@ -1,12 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-export interface GisViewPosition {
-  center: number[];
-  zoom?: number;
-}
+import { BackgroundMapType, GisViewPosition } from "../../common/domain/gis-common";
 
 export interface GisInfoState {
   gisPosition: { center: number[]; zoom: number };
+  background: BackgroundMapType;
 }
 
 const initialState: GisInfoState = {
@@ -14,6 +11,7 @@ const initialState: GisInfoState = {
     center: [126.8915302, 37.4858711],
     zoom: 15,
   },
+  background: "kakao",
 };
 
 export const gisInfoSlice = createSlice({
@@ -24,9 +22,12 @@ export const gisInfoSlice = createSlice({
       state.gisPosition.center = action.payload.center;
       state.gisPosition.zoom = action.payload?.zoom || state.gisPosition.zoom;
     },
+    gisSetBackground: (state, action: PayloadAction<BackgroundMapType>) => {
+      state.background = action.payload;
+    },
   },
 });
 
-export const { gisSetLocation } = gisInfoSlice.actions;
+export const { gisSetLocation, gisSetBackground } = gisInfoSlice.actions;
 
 export default gisInfoSlice.reducer;
