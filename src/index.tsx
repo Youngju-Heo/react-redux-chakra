@@ -64,7 +64,7 @@ const AuthChecker = (): JSX.Element => {
         <ReactKeycloakProvider
           authClient={state.keycloak}
           onEvent={onKeycloakEvent}
-          initOptions={{ onLoad: "login-required" }}
+          // initOptions={{ onLoad: "login-required" }}
         >
           <App />
         </ReactKeycloakProvider>

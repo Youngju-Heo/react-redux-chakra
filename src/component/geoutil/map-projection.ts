@@ -23,7 +23,8 @@ export class MapProjection {
 
   // kakao map, 세계측지계 200000, 500000: EPSG:5181
   public static kakaoResolutions = [2048, 1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1, 0.5, 0.25];
-  public static kakaoExtent = [-30000, -60000, 494288, 988576];
+  public static kakaoExtent = [-30000, -60000, 700000, 819486];
+  // public static kakaoExtent = [-30000, -60000, 777525, 819486];
   public static kakaoProj =
     "+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs";
 }

@@ -13,30 +13,40 @@ export interface PositionInfo {
   icon?: AnchorIconType;
 }
 
-export class AnchorLayer extends VectorLayer<VectorSource<Geometry>> {
-  static images: { [key: string]: Icon } = {
-    pin: new Icon({
-      anchor: [0.5, 1.0],
-      scale: 0.7,
-      anchorXUnits: "fraction",
-      anchorYUnits: "fraction",
-      src: "assets/images/pin.png",
-    }),
-    point: new Icon({
-      anchor: [0.5, 0.5],
-      scale: 0.6,
-      anchorXUnits: "fraction",
-      anchorYUnits: "fraction",
-      src: "assets/images/point.png",
-    }),
-    camera: new Icon({
-      anchor: [0.5, 0.5],
-      scale: 0.7,
-      anchorXUnits: "fraction",
-      anchorYUnits: "fraction",
-      src: "assets/images/camera.png",
-    }),
+export class LayerAnchorLabel extends VectorLayer<VectorSource<Geometry>> {
+  static images: { [key: string]: { icon: Icon; offset: number } } = {
+    pin: {
+      icon: new Icon({
+        anchor: [0.5, 1.0],
+        scale: 0.7,
+        anchorXUnits: "fraction",
+        anchorYUnits: "fraction",
+        src: "assets/images/pin.png",
+      }),
+      offset: 8,
+    },
+    point: {
+      icon: new Icon({
+        anchor: [0.5, 0.5],
+        scale: 0.6,
+        anchorXUnits: "fraction",
+        anchorYUnits: "fraction",
+        src: "assets/images/point.png",
+      }),
+      offset: 24,
+    },
+    camera: {
+      icon: new Icon({
+        anchor: [0.5, 0.5],
+        scale: 0.8,
+        anchorXUnits: "fraction",
+        anchorYUnits: "fraction",
+        src: "assets/images/camera.png",
+      }),
+      offset: 24,
+    },
   };
+
   constructor() {
     super({
       source: new VectorSource<Geometry>({
@@ -47,10 +57,11 @@ export class AnchorLayer extends VectorLayer<VectorSource<Geometry>> {
         if (feature) {
           const style = this.baseStyle;
           style.getText().setText(feature.get("name") || "");
-          console.log("icon", feature.get("icon"));
-          if (feature.get("icon")) {
-            const icon = feature.get("icon") as AnchorIconType;
-            style.setImage(AnchorLayer.images[icon]);
+          const icon = feature.get("icon") as AnchorIconType;
+          if (icon) {
+            const img = LayerAnchorLabel.images[icon];
+            style.setImage(img.icon);
+            style.getText().setOffsetY(img.offset);
           }
           return style;
         }
@@ -64,9 +75,10 @@ export class AnchorLayer extends VectorLayer<VectorSource<Geometry>> {
   }
 
   setPosition(pos: PositionInfo | PositionInfo[]) {
+    this.clearPosition();
+
     const source = this.getSource();
     if (source) {
-      source.clear();
       if (Array.isArray(pos)) {
         if (pos.length > 0) {
           source.addFeatures(
@@ -75,7 +87,7 @@ export class AnchorLayer extends VectorLayer<VectorSource<Geometry>> {
                 new Feature({
                   geometry: new Point(p.pos),
                   name: p.name,
-                  icon: p.icon as string,
+                  icon: p.icon,
                 })
             )
           );

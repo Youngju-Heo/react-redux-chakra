@@ -56,7 +56,7 @@ export class BaroTileSource extends WMTS {
  *   - 클라우드 지도 사용시: https://tms-gis-tile.azurewebsites.net/api/v1/tile/{0}/{1}/{2}
  *   - 로컬지도 사용시: /emaphd/{0}/{1}/{2}.png
  */
-export class BaroTileMap extends TileLayer<WMTS> {
+export class TileMapBaro extends TileLayer<WMTS> {
   constructor(private readonly sourcePath?: string) {
     super({
       preload: Infinity,

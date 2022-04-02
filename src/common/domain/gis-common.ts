@@ -7,7 +7,7 @@ import * as proj from "ol/proj";
 
 export type BackgroundMapType = "none" | "baro" | "kakao" | "skyview" | "hybrid";
 export const DefaultLocation = [126.8915302, 37.4858711];
-export const DefaultEPSG = "EPSG:5179";
+export const DefaultProjection = "EPSG:5179";
 
 export interface GisViewPosition {
   center: number[];
@@ -44,7 +44,7 @@ export const ReadFeatureFromGeoJSON = (
   return [];
 };
 
-export const NewMap = (
+export const NewGisMap = (
   targetName: string,
   projection?: string,
   center?: number[],
@@ -58,7 +58,7 @@ export const NewMap = (
       // new BaroTileMap(),
     ],
     view: new View({
-      projection: projection || DefaultEPSG,
+      projection: projection || DefaultProjection,
       center: proj.fromLonLat(center || DefaultLocation, projection),
       zoom: zoom || 18,
       maxZoom: maxZoom || 20,

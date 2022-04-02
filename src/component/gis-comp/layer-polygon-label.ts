@@ -4,7 +4,7 @@ import { Geometry, Point } from "ol/geom";
 import { Fill, Stroke, Style, Text } from "ol/style";
 import { Feature } from "ol";
 
-export class DistrictLayer extends VectorLayer<VectorSource<Geometry>> {
+export class LayerPolygonLabel extends VectorLayer<VectorSource<Geometry>> {
   constructor() {
     super({
       source: new VectorSource<Geometry>({
