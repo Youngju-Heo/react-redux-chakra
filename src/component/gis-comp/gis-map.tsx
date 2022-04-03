@@ -6,12 +6,18 @@ import { Box } from "@chakra-ui/react";
 import BaseLayer from "ol/layer/Base";
 import { connect } from "react-redux";
 import { RootState } from "../../store";
-import { GisInfoState, gisSetLocation } from "../../store/gisinfo/gis-info-slice";
+import { gisSetLocation } from "../../store/gisinfo/gis-info-slice";
 import { statusMapLocation } from "../../store/status/status-slice";
 
 import "ol/ol.css";
 import { makeBackgroundLayer } from "./background-builder";
-import { DefaultProjection, DefaultLocation, GisViewExtent, GisViewPosition } from "../../common/domain/gis-common";
+import {
+  DefaultProjection,
+  DefaultLocation,
+  GisViewExtent,
+  GisViewPosition,
+  BackgroundMapType,
+} from "../../common/domain/gis-common";
 import { MapControl } from "./map-control";
 
 interface GisMapProps {
@@ -19,7 +25,8 @@ interface GisMapProps {
   minZoom?: number;
   maxZoom?: number;
   center?: number[];
-  gisInfo?: GisInfoState;
+  moveTo?: { center: number[]; zoom: number };
+  background?: BackgroundMapType;
   statusMapLocation: (pos: GisViewExtent) => void;
   gisSetLocation: (pos: GisViewPosition) => void;
 }
@@ -77,7 +84,7 @@ const GisMap = (props: GisMapProps): JSX.Element => {
       // const features = ReadFeatureFromGeoJSON(DefaultEPSG, "EPSG:4326", response.data as Record<string, unknown>);
       // const layers = new DistrictLayer();
       // layers.setSource(new VectorSource<Geometry>({ features }));
-      setLayers([makeBackgroundLayer(props.gisInfo?.background || "kakao")]);
+      setLayers([makeBackgroundLayer(props.background || "kakao")]);
       // }
     };
 
@@ -86,7 +93,7 @@ const GisMap = (props: GisMapProps): JSX.Element => {
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.gisInfo?.background]);
+  }, [props.background]);
 
   React.useEffect(() => {
     if (mapObject) {
@@ -96,9 +103,9 @@ const GisMap = (props: GisMapProps): JSX.Element => {
 
   React.useEffect(() => {
     if (mapObject) {
-      mapObject.moveToLonLat(props.gisInfo?.gisPosition?.center || DefaultLocation, undefined, "pin");
+      mapObject.moveToLonLat(props.moveTo?.center || DefaultLocation, undefined, "pin");
     }
-  }, [mapObject, props.gisInfo?.gisPosition]);
+  }, [mapObject, props.moveTo]);
 
   return (
     <Box w="100%" h="100%">
@@ -108,7 +115,8 @@ const GisMap = (props: GisMapProps): JSX.Element => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  gisInfo: state.gisInfo,
+  moveTo: state.gisInfo.moveTo,
+  background: state.gisInfo.background,
 });
 
 export default connect(mapStateToProps, { statusMapLocation, gisSetLocation })(GisMap);
