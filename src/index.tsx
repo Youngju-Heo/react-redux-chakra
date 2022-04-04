@@ -16,7 +16,7 @@ import { ConnectedRouter } from "connected-react-router";
 import { history } from "./store";
 import proj4 from "proj4";
 import { register } from "ol/proj/proj4";
-import { MapProjection } from "./component/geoutil/map-projection";
+import { MapProjection } from "./component/gis-comp/map-projection";
 import Keycloak from "keycloak-js";
 import axios from "axios";
 import { AuthClientError, AuthClientEvent } from "@react-keycloak/core";

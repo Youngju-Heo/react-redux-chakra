@@ -1,5 +1,5 @@
 import TileLayer from "ol/layer/Tile";
-import { MapProjection } from "../geoutil/map-projection";
+import { MapProjection } from "./map-projection";
 import { XYZ } from "ol/source";
 import { Projection } from "ol/proj";
 import TileGrid from "ol/tilegrid/TileGrid";

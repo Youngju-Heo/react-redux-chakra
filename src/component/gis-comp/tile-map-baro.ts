@@ -1,6 +1,6 @@
 import { ImageTile, Tile } from "ol";
 import WmtsTileGrid from "ol/tilegrid/WMTS";
-import { MapProjection } from "../geoutil/map-projection";
+import { MapProjection } from "./map-projection";
 import * as proj from "ol/proj";
 import { WMTS } from "ol/source";
 import TileLayer from "ol/layer/Tile";
