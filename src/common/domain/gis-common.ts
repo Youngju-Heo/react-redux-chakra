@@ -6,8 +6,11 @@ import * as OlControl from "ol/control";
 import * as proj from "ol/proj";
 
 export type BackgroundMapType = "none" | "baro" | "kakao" | "skyview" | "hybrid";
-export const DefaultLocation = [126.8915302, 37.4858711];
+export const DefaultLocation = [129.36115, 35.58273]; // [126.8915302, 37.4858711];
 export const DefaultProjection = "EPSG:5179";
+
+let ViewCenter = [129.36115, 35.58273];
+let ViewRange = [127.8684, 35.0073, 130.8178, 36.1804];
 
 export interface GisViewPosition {
   center: number[];
@@ -20,6 +23,25 @@ export interface GisViewExtent {
   rect: number[];
   zoom: number;
 }
+
+export const GetViewCenter = (): number[] => {
+  return proj.fromLonLat([ViewCenter[0], ViewCenter[1]], DefaultProjection);
+};
+
+export const GetViewRange = (): number[] => {
+  const p1 = proj.fromLonLat([ViewRange[0], ViewRange[1]], DefaultProjection);
+  const p2 = proj.fromLonLat([ViewRange[2], ViewRange[3]], DefaultProjection);
+
+  return p1.concat(p2);
+};
+
+export const SetViewCenter = (center: number[]) => {
+  ViewCenter = center;
+};
+
+export const SetViewRange = (range: number[]) => {
+  ViewRange = range;
+};
 
 export const ReadFeatureFromGeoJSON = (
   featureProjection: string,
@@ -52,6 +74,8 @@ export const NewGisMap = (
   minZoom?: number,
   maxZoom?: number
 ): Map => {
+  console.log(`GetViewRange: ${GetViewRange()}`);
+
   return new OlMap({
     target: targetName,
     layers: [
@@ -60,6 +84,7 @@ export const NewGisMap = (
     view: new View({
       projection: projection || DefaultProjection,
       center: proj.fromLonLat(center || DefaultLocation, projection),
+      // extent: GetViewRange(),
       zoom: zoom || 18,
       maxZoom: maxZoom || 20,
       minZoom: minZoom || 10,

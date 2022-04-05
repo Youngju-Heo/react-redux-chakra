@@ -38,15 +38,14 @@ const App = (props: AppProps): JSX.Element => {
   return (
     <MainFrame>
       <LeftSide>
-        <VertMenuItem caption="지도보기" icon={MdOutlineMap} to="/" />
-        <VertMenuItem caption="정책설정" icon={MdOutlineNoteAlt} to="/add" />
-        <VertMenuItem caption="결과조회" icon={MdOutlineListAlt} to="/search" />
-        <VertMenuItem caption="레이어관리" icon={MdLayers} to="/layer" />
+        <VertMenuItem caption="바로 e맵" icon={MdOutlineMap} to="/" />
+        <VertMenuItem caption="하이브리드" icon={MdOutlineNoteAlt} to="/add" />
+        <VertMenuItem caption="스카이뷰" icon={MdOutlineListAlt} to="/search" />
+        <VertMenuItem caption="일반지도" icon={MdLayers} to="/layer" />
       </LeftSide>
       <RightSide>
         <MainBody>
           <Box position="relative" h="100%" w="100%">
-            {/*<MainMap view={{ center: [126.89154003559742, 37.4858879791826], zoom: 15 }} />*/}
             <GisMap />
           </Box>
         </MainBody>

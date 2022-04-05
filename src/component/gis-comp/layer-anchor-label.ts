@@ -18,7 +18,6 @@ export class LayerAnchorLabel extends VectorLayer<VectorSource<Geometry>> {
     pin: {
       icon: new Icon({
         anchor: [0.5, 1.0],
-        scale: 0.7,
         anchorXUnits: "fraction",
         anchorYUnits: "fraction",
         src: "assets/images/pin.png",
@@ -28,7 +27,6 @@ export class LayerAnchorLabel extends VectorLayer<VectorSource<Geometry>> {
     point: {
       icon: new Icon({
         anchor: [0.5, 0.5],
-        scale: 0.6,
         anchorXUnits: "fraction",
         anchorYUnits: "fraction",
         src: "assets/images/point.png",
@@ -38,7 +36,6 @@ export class LayerAnchorLabel extends VectorLayer<VectorSource<Geometry>> {
     camera: {
       icon: new Icon({
         anchor: [0.5, 0.5],
-        scale: 0.8,
         anchorXUnits: "fraction",
         anchorYUnits: "fraction",
         src: "assets/images/camera.png",

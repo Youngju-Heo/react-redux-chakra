@@ -40,6 +40,9 @@ const GisMap = (props: GisMapProps): JSX.Element => {
   const targetName = props.target || "map";
 
   React.useEffect((): void => {
+    // initialize routine: map initialize
+    // 새로운 맵을 생성하고, 이벤트를 등록한다
+
     const map = new MapControl(targetName, DefaultProjection, DefaultLocation);
 
     map.onMoveEnd = (srcMap: Map): void => {
@@ -69,33 +72,21 @@ const GisMap = (props: GisMapProps): JSX.Element => {
   }, []);
 
   React.useEffect(() => {
+    // layer 변경되는 경우 적용하는 hook 으로 새로운 layer 배열을 생성한다.
     const updateLayer = async (): Promise<void> => {
-      // const token = keycloak?.token || "";
-      // const response = await Utility.ExecuteRequest("/ds-system/api/v1/emd-layers", {
-      //   method: "GET",
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      //   params: {
-      //     areas: "31200",
-      //   },
-      // });
-      // if (response && response.status == 200) {
-      // const features = ReadFeatureFromGeoJSON(DefaultEPSG, "EPSG:4326", response.data as Record<string, unknown>);
-      // const layers = new DistrictLayer();
-      // layers.setSource(new VectorSource<Geometry>({ features }));
       setLayers([makeBackgroundLayer(props.background || "kakao")]);
-      // }
     };
 
     updateLayer().catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.background]);
 
   React.useEffect(() => {
+    // 맵이 새로 생성되었거나, 레이어가 변경되었을 경우 새로 적용한다.
+
     if (mapObject) {
       mapObject.layers = layers;
     }

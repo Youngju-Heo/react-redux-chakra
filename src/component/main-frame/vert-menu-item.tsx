@@ -29,7 +29,7 @@ export const VertMenuItem = (props: VertMenuItemProps): JSX.Element => {
           <Center>
             <Icon as={props.icon ? props.icon : MdErrorOutline} boxSize={6} />
           </Center>
-          <Center fontSize="sm" marginTop={0}>
+          <Center fontSize="sm" marginTop={0} textAlign="center">
             {props.caption ? props.caption : "이름없음"}
           </Center>
         </Box>
