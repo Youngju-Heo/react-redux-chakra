@@ -23,7 +23,7 @@ const App = (props: AppProps): JSX.Element => {
     if (props.location?.pathname === "/") {
       props.gisSetBackground("baro");
       props.gisSetLocation({
-        center: [126.8915302, 37.4858711],
+        center: [126.89154, 37.48591],
       });
     } else if (props.location?.pathname === "/search") {
       props.gisSetBackground("skyview");
