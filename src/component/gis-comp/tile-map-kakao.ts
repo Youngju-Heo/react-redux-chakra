@@ -35,7 +35,7 @@ export class TileMapKakao extends TileLayer<XYZ> {
           const z = MapProjection.kakaoResolutions.length - tileCoord[0];
           const x = tileCoord[1];
           const y = -tileCoord[2] - 1;
-          const srcPath = sourcePath || "/dms-gis-proxy/http/map{0}.daumcdn.net/map_2d_hd/2012tlq/L{1}/{2}/{3}.png";
+          const srcPath = sourcePath || "/dms-gis-proxy/http/map{0}.daumcdn.net/map_2d_hd/2203tof/L{1}/{2}/{3}.png";
           return Utility.FormatString(srcPath, s.toString(10), z.toString(10), y.toString(10), x.toString(10));
         },
         crossOrigin: "anonymous",

@@ -15,7 +15,7 @@ export const makeBackgroundLayer = (t: BackgroundMapType): BaseLayer => {
   if (t === "baro") {
     return new TileMapBaro();
   } else if (t === "kakao") {
-    return new TileMapKakao();
+    return new TileMapKakao("/dms-gis-proxy/http/map{0}.daumcdn.net/map_2d_hd/2203tof/L{1}/{2}/{3}.png");
   } else if (t === "skyview") {
     return new TileMapKakao("/dms-gis-proxy/http/map{0}.daumcdn.net/map_skyview/L{1}/{2}/{3}.jpg?v=160114");
   } else if (t === "hybrid") {
