@@ -2,7 +2,6 @@
 import React from "react";
 import * as proj from "ol/proj";
 import { Map } from "ol";
-import { Box } from "@chakra-ui/react";
 import BaseLayer from "ol/layer/Base";
 import { connect } from "react-redux";
 import { RootState } from "../../store";
@@ -11,13 +10,7 @@ import { statusMapLocation } from "../../store/status/status-slice";
 
 import "ol/ol.css";
 import { makeBackgroundLayer } from "./background-builder";
-import {
-  DefaultProjection,
-  DefaultLocation,
-  GisViewExtent,
-  GisViewPosition,
-  BackgroundMapType,
-} from "../../common/domain/gis-common";
+import { DefaultProjection, DefaultLocation, GisViewExtent, GisViewPosition, BackgroundMapType } from "./gis-common";
 import { MapControl } from "./map-control";
 
 interface GisMapProps {
@@ -99,9 +92,9 @@ const GisMap = (props: GisMapProps): JSX.Element => {
   }, [mapObject, props.moveTo]);
 
   return (
-    <Box w="100%" h="100%">
-      <Box id={targetName} position="absolute" left={0} top={0} right={0} bottom={0} zIndex={0} />
-    </Box>
+    <div style={{ width: "100%", height: "100%" }}>
+      <div id={targetName} style={{ position: "absolute", left: 0, top: 0, right: 0, bottom: 0, zIndex: 0 }} />
+    </div>
   );
 };
 

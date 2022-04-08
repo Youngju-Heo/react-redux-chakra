@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BackgroundMapType, DefaultLocation, GisViewPosition } from "../../common/domain/gis-common";
+import { BackgroundMapType, DefaultLocation, GisViewPosition } from "../../component/gis-comp/gis-common";
 
 export interface GisInfoState {
   moveTo: { center: number[]; zoom: number };

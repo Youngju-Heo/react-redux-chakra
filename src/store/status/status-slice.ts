@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import store, { RootState } from "../index";
-import { GisViewExtent } from "../../common/domain/gis-common";
+import { GisViewExtent } from "../../component/gis-comp/gis-common";
 
 export interface StatusState {
   message: string;

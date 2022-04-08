@@ -4,7 +4,7 @@ import { TileMapKakao } from "./tile-map-kakao";
 import LayerGroup from "ol/layer/Group";
 import TileLayer from "ol/layer/Tile";
 import { OSM } from "ol/source";
-import { BackgroundMapType } from "../../common/domain/gis-common";
+import { BackgroundMapType } from "./gis-common";
 
 /**
  * 배경지도 생성 클래스

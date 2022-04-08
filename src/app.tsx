@@ -8,7 +8,7 @@ import GisMap from "./component/gis-comp/gis-map";
 import { RootState } from "./store";
 import { connect } from "react-redux";
 import { gisSetBackground, gisSetLocation } from "./store/gisinfo/gis-info-slice";
-import { BackgroundMapType, GisViewPosition } from "./common/domain/gis-common";
+import { BackgroundMapType, GisViewPosition } from "./component/gis-comp/gis-common";
 
 import "ol/ol.css";
 

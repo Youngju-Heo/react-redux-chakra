@@ -1,6 +1,6 @@
 import { Map, View } from "ol";
 import * as proj from "ol/proj";
-import { NewGisMap } from "../../common/domain/gis-common";
+import { NewGisMap } from "./gis-common";
 import BaseLayer from "ol/layer/Base";
 import { AnchorIconType, LayerAnchorLabel } from "./layer-anchor-label";
 
