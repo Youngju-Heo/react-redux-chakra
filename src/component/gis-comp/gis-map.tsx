@@ -7,11 +7,11 @@ import { connect } from "react-redux";
 import { RootState } from "../../store";
 import { gisSetLocation } from "../../store/gisinfo/gis-info-slice";
 import { statusMapLocation } from "../../store/status/status-slice";
-
-import "ol/ol.css";
 import { makeBackgroundLayer } from "./background-builder";
 import { DefaultProjection, DefaultLocation, GisViewExtent, GisViewPosition, BackgroundMapType } from "./gis-common";
 import { MapControl } from "./map-control";
+
+import "ol/ol.css";
 
 interface GisMapProps {
   target?: string;
