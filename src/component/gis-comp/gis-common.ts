@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { Geometry } from "ol/geom";
-import { Feature, Map as OlMap, Map, View } from "ol";
+import { Feature, Map, View } from "ol";
 import { GeoJSON } from "ol/format";
 import * as OlControl from "ol/control";
 import * as proj from "ol/proj";
@@ -76,7 +76,7 @@ export const NewGisMap = (
 ): Map => {
   console.log(`GetViewRange: ${GetViewRange()}`);
 
-  return new OlMap({
+  return new Map({
     target: targetName,
     layers: [
       // new BaroTileMap(),
