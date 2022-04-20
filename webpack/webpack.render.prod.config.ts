@@ -5,14 +5,15 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
+import { BaseHrefWebpackPlugin } from "base-href-webpack-plugin";
 
 const config: Configuration = {
   mode: 'production',
-  entry: './src/index.tsx',
+  entry: './src/render/index.tsx',
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, '../build/render'),
     filename: '[name].[contenthash].js',
-    publicPath: '/ds-system/app/',
+    publicPath: './',
   },
   module: {
     rules: [
@@ -47,6 +48,7 @@ const config: Configuration = {
     new HtmlWebpackPlugin({
       template: 'public/index.html',
     }),
+    new BaseHrefWebpackPlugin({ baseHref: './' }),
     new ForkTsCheckerWebpackPlugin({
       async: false,
     }),
@@ -55,7 +57,7 @@ const config: Configuration = {
     }),
     new CopyPlugin({
       patterns: [
-        { from: 'src/assets', to: 'assets' },
+        { from: 'src/render/assets', to: 'assets' },
         {from: 'public/authenticate.json', to: 'authenticate.json', noErrorOnMissing: true},
         {from: "public/favicon.ico", to: "favicon.ico", noErrorOnMissing: true},
       ],

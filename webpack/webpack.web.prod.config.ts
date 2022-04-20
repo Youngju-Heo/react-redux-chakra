@@ -1,18 +1,20 @@
 import path from 'path';
-import { Configuration, HotModuleReplacementPlugin } from 'webpack';
+import { Configuration } from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
-// 이 내용이 없으면, devServer 이하 내용에 대하여 에러 발생함
-import 'webpack-dev-server';
+import { BaseHrefWebpackPlugin } from "base-href-webpack-plugin";
 
 const config: Configuration = {
-  mode: 'development',
+  mode: 'production',
+  entry: './src/render/index.tsx',
   output: {
+    path: path.resolve(__dirname, '../build'),
+    filename: '[name].[contenthash].js',
     publicPath: '/ds-system/app/',
   },
-  entry: './src/index.tsx',
   module: {
     rules: [
       {
@@ -33,7 +35,7 @@ const config: Configuration = {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loader: 'file-loader',
         options: {
-          name: 'assets/images/[name].[ext]',
+          name: 'assets/images/[name].[contenthash].[ext]',
         },
       },
     ],
@@ -42,10 +44,11 @@ const config: Configuration = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
     }),
-    new HotModuleReplacementPlugin(),
+    new BaseHrefWebpackPlugin({ baseHref: '/ds-system/app/' }),
     new ForkTsCheckerWebpackPlugin({
       async: false,
     }),
@@ -54,29 +57,12 @@ const config: Configuration = {
     }),
     new CopyPlugin({
       patterns: [
-        { from: 'src/assets', to: 'assets' },
-        {from: "public/authenticate.json", to: "authenticate.json", noErrorOnMissing: true},
+        { from: 'src/render/assets', to: 'assets' },
+        {from: 'public/authenticate.json', to: 'authenticate.json', noErrorOnMissing: true},
         {from: "public/favicon.ico", to: "favicon.ico", noErrorOnMissing: true},
       ],
     }),
   ],
-  devtool: 'inline-source-map',
-  devServer: {
-    static: path.join(__dirname, 'build'),
-    historyApiFallback: {
-      index: "/ds-system/app/",
-    },
-    port: 3000,
-    open: true,
-    hot: true,
-    proxy: {
-      "/dms-gis-proxy": { changeOrigin: true, target: "http://ca-172-16-36-180.vurix.kr" },
-      "/dms-gis": { changeOrigin: true, target: "http://ca-172-16-36-180.vurix.kr" },
-      "/emaphd": { changeOrigin: true, target: "http://ca-172-16-36-180.vurix.kr" },
-      "/media": { changeOrigin: true, target: "http://ca-172-16-36-180.vurix.kr" },
-      "/ds-system/api": { changeOrigin: true, target: "http://ca-172-16-36-180.vurix.kr" },
-    }
-  },
 };
 
 export default config;
