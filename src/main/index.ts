@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 // src/electron.js
+import path from "path";
 import { app, BrowserWindow } from "electron";
 
 function createWindow() {
@@ -11,7 +12,9 @@ function createWindow() {
       nodeIntegration: true,
     },
   }); // and load the index.html of the app.
-  win.loadFile("build/render/index.html");
+  win.loadFile(path.join(__dirname, "render/index.html")).catch((err) => {
+    console.error(err);
+  });
 }
 
 app.on("ready", createWindow);

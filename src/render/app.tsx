@@ -3,7 +3,7 @@ import React from "react";
 import { LeftSide, MainFrame, MainStatus, RightSide, VertMenuItem } from "./component/main-frame";
 import { MainBody } from "./component/main-frame/main-body";
 import { MdOutlineMap, MdOutlineNoteAlt, MdOutlineListAlt, MdLayers } from "react-icons/md";
-import { Box } from "@chakra-ui/react";
+import { Box, useColorMode } from "@chakra-ui/react";
 import GisMap from "./component/gis-comp/gis-map";
 import { RootState } from "./store";
 import { connect } from "react-redux";
@@ -19,6 +19,8 @@ interface AppProps {
 }
 
 const App = (props: AppProps): JSX.Element => {
+  const { setColorMode } = useColorMode();
+  setColorMode("dark");
   React.useEffect(() => {
     if (props.location?.pathname === "/") {
       props.gisSetBackground("baro");
