@@ -4,11 +4,12 @@
   "main": "build/index.js",
   "scripts": {
     "start": "webpack serve --config webpack/webpack.web.dev.config.ts",
-    "start:electron": "npm run build:render && npm run build:main && electron .",
+    "start:electron": "electron .",
     "build:dev": "rimraf build && webpack --config webpack/webpack.web.dev.config.ts",
     "build:prod": "rimraf build && webpack --config webpack/webpack.web.prod.config.ts",
     "build:render": "rimraf build && webpack --config webpack/webpack.render.prod.config.ts",
-    "build:main": "tsc -p main-tsconfig.json"
+    "build:main": "tsc -p main-tsconfig.json",
+    "build:electron": "npm run build:render && npm run build:main"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.8",
@@ -19,7 +20,7 @@
     "@reduxjs/toolkit": "^1.8.1",
     "axios": "^0.26.1",
     "connected-react-router": "^6.9.2",
-    "framer-motion": "^6.2.9",
+    "framer-motion": "^6.3.0",
     "history": "^4.10.1",
     "keycloak-js": "^17.0.1",
     "moment": "^2.29.3",
