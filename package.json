@@ -1,11 +1,14 @@
 {
   "name": "react-redux-chakra-sample",
   "version": "0.0.1",
+  "main": "build/index.js",
   "scripts": {
     "start": "webpack serve --config webpack/webpack.web.dev.config.ts",
+    "start:electron": "npm run build:render && npm run build:main && electron .",
     "build:dev": "rimraf build && webpack --config webpack/webpack.web.dev.config.ts",
     "build:prod": "rimraf build && webpack --config webpack/webpack.web.prod.config.ts",
-    "build:render": "rimraf build && webpack --config webpack/webpack.render.prod.config.ts"
+    "build:render": "rimraf build && webpack --config webpack/webpack.render.prod.config.ts",
+    "build:main": "tsc -p main-tsconfig.json"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.8",
@@ -56,6 +59,7 @@
     "copy-webpack-plugin": "^10.2.4",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
+    "electron": "^18.1.0",
     "eslint": "^7.32.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
