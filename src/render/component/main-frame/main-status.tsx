@@ -6,6 +6,7 @@ import { RootState } from "../../store";
 import { connect } from "react-redux";
 import { StatusState } from "../../store/status/status-slice";
 import { FormatNumber, FormatNumberArray } from "../../common/utilities";
+import isElectron from "is-electron";
 
 interface MainStatusProps {
   status?: StatusState;
@@ -16,6 +17,10 @@ const MainStatus = (props: MainStatusProps): JSX.Element => {
   const view = props?.status?.view || { center: [0, 0], zoom: 0 };
 
   const showMessage = `[${FormatNumberArray(view?.center || [0, 0], 6)}, ${FormatNumber(view?.zoom, 4)}]`;
+  if (isElectron()) {
+    console.log("is-electron", window.ipcRenderer);
+    window.ipcRenderer.send("log-status", `${showMessage} ${message}`);
+  }
 
   return (
     <Flex p={2} h={10} w="100%" bg="rgba(13,16,31,.3)">

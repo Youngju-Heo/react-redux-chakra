@@ -21,6 +21,7 @@ import Keycloak from "keycloak-js";
 import axios from "axios";
 import { AuthClientError, AuthClientEvent } from "@react-keycloak/core";
 import { Processing } from "./component/processing";
+import { IpcRenderer } from "electron/renderer";
 
 interface AuthCheckerState {
   keycloak?: Keycloak.KeycloakInstance;
@@ -31,6 +32,12 @@ moment.locale("ko");
 proj4.defs("EPSG:5179", MapProjection.baroHdProj);
 proj4.defs("EPSG:5181", MapProjection.kakaoProj);
 register(proj4);
+
+declare global {
+  interface Window {
+    ipcRenderer: IpcRenderer;
+  }
+}
 
 const AuthChecker = (): JSX.Element => {
   const [state, setState] = React.useState({ authorized: false } as AuthCheckerState);
