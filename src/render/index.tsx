@@ -21,7 +21,7 @@ import Keycloak from "keycloak-js";
 import axios from "axios";
 import { AuthClientError, AuthClientEvent } from "@react-keycloak/core";
 import { Processing } from "./component/processing";
-import { IpcRenderer } from "electron/renderer";
+import isElectron from "is-electron";
 
 interface AuthCheckerState {
   keycloak?: Keycloak.KeycloakInstance;
@@ -33,10 +33,10 @@ proj4.defs("EPSG:5179", MapProjection.baroHdProj);
 proj4.defs("EPSG:5181", MapProjection.kakaoProj);
 register(proj4);
 
-declare global {
-  interface Window {
-    ipcRenderer: IpcRenderer;
-  }
+if (isElectron()) {
+  window.electronApi.handleMessage((event, message) => {
+    console.log("srv-message", message);
+  });
 }
 
 const AuthChecker = (): JSX.Element => {
