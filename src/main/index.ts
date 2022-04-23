@@ -2,6 +2,12 @@
 import path from "path";
 import { app, BrowserWindow, ipcMain } from "electron";
 
+const getAsyncTime = async (): Promise<string> => {
+  return await new Promise<string>((resolve) => {
+    setTimeout(() => resolve(new Date().toISOString()), 1000);
+  });
+};
+
 function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
@@ -20,7 +26,8 @@ function createWindow() {
   //   console.error(err);
   // });
 
-  win.loadURL("http://localhost:3000/ds-system/app").catch((err) => {
+  const host = process.env.HOST || "http://localhost:3000";
+  win.loadURL(`${host}/ds-system/app`).catch((err) => {
     console.error(err);
   });
 
@@ -32,6 +39,8 @@ function createWindow() {
     console.log("cli-message", value);
     win.webContents.send("srv-message", value);
   });
+
+  ipcMain.handle("cli-get-time", getAsyncTime);
 }
 
 // app.on("ready", createWindow);

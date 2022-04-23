@@ -8,4 +8,5 @@ contextBridge.exposeInMainWorld("electronApi", {
   },
   handleMessage: (callback: (event: IpcRendererEvent, message: string) => void) =>
     ipcRenderer.on("srv-message", callback),
+  asyncGetTime: () => ipcRenderer.invoke("cli-get-time"),
 });

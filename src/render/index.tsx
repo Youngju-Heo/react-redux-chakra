@@ -37,6 +37,11 @@ if (isElectron()) {
   window.electronApi.handleMessage((event, message) => {
     console.log("srv-message", message);
   });
+
+  console.log("call async-get-time", new Date().toISOString());
+  window.electronApi.asyncGetTime().then((time) => {
+    console.log("async-get-time", time);
+  });
 }
 
 const AuthChecker = (): JSX.Element => {

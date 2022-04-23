@@ -5,6 +5,8 @@ declare global {
     setMessage(message: string): void;
 
     handleMessage(callback: (event: IpcRendererEvent, message: string) => void): void;
+
+    asyncGetTime(): Promise<string>;
   }
 
   interface Window {
