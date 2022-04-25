@@ -8,7 +8,7 @@ const getAsyncTime = async (): Promise<string> => {
   });
 };
 
-function createWindow() {
+const createWindow = () => {
   // Create the browser window.
   const win = new BrowserWindow({
     width: 1900,
@@ -41,7 +41,7 @@ function createWindow() {
   });
 
   ipcMain.handle("cli-get-time", getAsyncTime);
-}
+};
 
 // app.on("ready", createWindow);
 

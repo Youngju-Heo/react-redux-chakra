@@ -5,9 +5,17 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch via NPM",
+      "name": "Launch Server via NPM",
       "request": "launch",
       "runtimeArgs": ["run-script", "start"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Launch electron client",
+      "request": "launch",
+      "runtimeArgs": ["run-script", "start:electron"],
       "runtimeExecutable": "npm",
       "skipFiles": ["<node_internals>/**"],
       "type": "pwa-node"
