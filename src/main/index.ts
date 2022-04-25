@@ -1,12 +1,7 @@
 /* eslint-disable no-console */
 import path from "path";
-import { app, BrowserWindow, ipcMain } from "electron";
-
-const getAsyncTime = async (): Promise<string> => {
-  return await new Promise<string>((resolve) => {
-    setTimeout(() => resolve(new Date().toISOString()), 1000);
-  });
-};
+import { app, BrowserWindow } from "electron";
+import SetMainService from "./main-service";
 
 const createWindow = () => {
   // Create the browser window.
@@ -31,16 +26,7 @@ const createWindow = () => {
     console.error(err);
   });
 
-  ipcMain.on("log-status", (e, value) => {
-    console.log(value);
-  });
-
-  ipcMain.on("cli-message", (e, value) => {
-    console.log("cli-message", value);
-    win.webContents.send("srv-message", value);
-  });
-
-  ipcMain.handle("cli-get-time", getAsyncTime);
+  SetMainService(win);
 };
 
 // app.on("ready", createWindow);
