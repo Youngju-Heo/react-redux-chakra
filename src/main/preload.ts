@@ -1,7 +1,6 @@
 import { contextBridge, ipcRenderer } from "electron";
 import { IpcRendererEvent } from "electron/renderer";
 
-(window as unknown as Record<string, unknown>).ipcRenderer = ipcRenderer;
 contextBridge.exposeInMainWorld("electronApi", {
   setMessage: (message: string) => {
     ipcRenderer.send("cli-message", message);
